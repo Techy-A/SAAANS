@@ -1,0 +1,299 @@
+/* SAAANS dashboard. Black and gold, taken from the ESP32 board's solder mask and pads. */
+:root {
+  --black: #0a0a08;
+  --panel: #13120e;
+  --line: #2e2b1f;
+  --silk: #f5f2e6;
+  --dim: #c2bda6;           /* secondary text, about 9:1 on the panel colour */
+  --gold: #f5c518;
+  --gold-soft: rgba(245, 197, 24, 0.14);
+  --alert: #ff6f4d;
+  --ok: #93dd76;
+  /* Spacing and corners. Space within a group is --s2; between groups it is --s4. */
+  --s1: 8px; --s2: 16px; --s3: 24px; --s4: 40px;
+  --r-outer: 10px;          /* panels and the chart */
+  --r-inner: 4px;           /* buttons and tags: the outer radius less the 6px gap they sit in */
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "Spline Sans Mono", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--black); }
+body {
+  margin: 0 auto;
+  max-width: 1320px;
+  padding: 0 32px 40px;
+  background: var(--black);
+  color: var(--silk);
+  font: 400 15px/1.5 var(--body);
+}
+h1, h2, p { margin: 0; }
+h1, h2, h3, .fc-headline { text-wrap: balance; }
+p, .note { text-wrap: pretty; }
+/* Numbers keep their width, so values don't jitter as they update */
+td, b, .tag, .fc-headline, .pen-text, svg text { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Top bar */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 28px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 16px; margin-right: auto; }
+.wordmark {
+  font: 800 40px/1 var(--display);
+  letter-spacing: 0.04em;
+  color: var(--black);
+  background: var(--gold);
+  padding: 4px 12px 5px;
+}
+.brand-line { font-size: 13px; line-height: 1.4; color: var(--dim); }
+.link { display: flex; align-items: center; gap: 8px; font: 400 13px var(--body); }
+.led { width: 9px; height: 9px; border-radius: 50%; background: var(--dim); }
+.led.live { background: var(--ok); }
+.led.warn { background: var(--gold); }
+.led.off { background: var(--alert); }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.field { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--dim); }
+select, .btn {
+  min-height: 36px;
+  font: 600 13px var(--body);
+  color: var(--silk);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-inner);
+  padding: 0 12px;
+}
+.btn { cursor: pointer; }
+.btn:hover { border-color: var(--gold); }
+.btn:disabled { opacity: 0.6; cursor: wait; }
+.btn-gold { background: var(--gold); border-color: var(--gold); color: var(--black); }
+.btn-gold:hover { background: #ffd83d; }
+
+/* Hero: one focal point, the AQI number, with the plain-language verdict beside it */
+.hero { padding: 36px 0 28px; }
+.hero-main { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s3) var(--s4); align-items: end; }
+.aqi-figure { display: flex; flex-direction: column; }
+.eyebrow { font: 600 13px var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+.aqi-number { font: 800 clamp(120px, 20vw, 220px)/0.85 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; margin: 6px 0 10px -0.04em; }
+.aqi-cat { display: inline-flex; align-items: center; gap: 10px; font: 600 18px var(--body); }
+.aqi-cat:empty { display: none; }
+.aqi-cat::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--swatch, transparent); box-shadow: 0 0 0 2px var(--silk); }
+.hero h1 {
+  font: 800 clamp(32px, 4.6vw, 56px)/1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--silk);
+  max-width: 18ch;
+}
+.advice { margin-top: 14px; font-size: 18px; max-width: 56ch; }
+@media (max-width: 760px) { .hero-main { grid-template-columns: 1fr; gap: var(--s2); } }
+.recorder { margin-top: 28px; border: 1px solid var(--line); background: var(--panel); border-radius: var(--r-outer); overflow: hidden; }
+.recorder-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--dim);
+}
+#recorder { display: block; width: 100%; height: 340px; }
+#recorder .grid { stroke: var(--line); stroke-width: 1; }
+#recorder .limit { stroke: #4a4530; stroke-width: 1; stroke-dasharray: 3 4; }
+#recorder text { font: 400 11px var(--mono); fill: var(--dim); }
+#recorder .trace { fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+#recorder .pen { fill: var(--gold); }
+#recorder .pen-ring { fill: none; stroke: var(--gold); opacity: 0.5; transform-box: fill-box; transform-origin: center; }
+#recorder .pen-tag { fill: var(--gold); }
+#recorder .pen-text { font: 600 13px var(--mono); fill: var(--black); }
+#recorder .empty { font: 400 14px var(--body); fill: var(--dim); }
+@media (prefers-reduced-motion: no-preference) {
+  .live-pen .pen-ring { animation: ping 2.4s ease-out infinite; }
+}
+@keyframes ping {
+  from { transform: scale(0.5); opacity: 0.7; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+
+/* Sensor modules */
+/* The particle sensor drives the AQI, so it is the large card; the two others stack beside it */
+.sensors { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px; }
+.module-lead { grid-row: span 2; }
+.module-lead .readouts { grid-template-columns: 1fr 1fr; gap: 20px 12px; margin: 20px 0; }
+.module-lead .readouts .lead { grid-column: 1 / -1; }
+.module-lead .readouts .lead b { font-size: clamp(72px, 9vw, 112px); }
+.module-lead .spark { height: 84px; }
+.module { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-outer); padding: 16px 18px 12px; display: flex; flex-direction: column; }
+.module header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.module h2 { font: 800 28px/1 var(--display); letter-spacing: 0.02em; }
+.tag { margin-left: auto; font: 600 12px var(--body); color: var(--dim); border: 1px solid var(--line); border-radius: var(--r-inner); padding: 1px 8px; }
+.tag[hidden] { display: none; }
+.tag.ok { color: var(--ok); border-color: currentColor; }
+.tag.warn { color: var(--gold); border-color: currentColor; }
+.tag.bad { color: var(--alert); border-color: currentColor; }
+.what { margin-top: 6px; font-size: 13px; color: var(--dim); min-height: 40px; }
+.readouts { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 8px; margin: 12px 0; }
+.readouts dt { font-size: 12px; color: var(--dim); }
+.readouts dd { margin: 0; }
+.readouts b { font: 600 24px/1.2 var(--mono); }
+.readouts .lead b { color: var(--gold); font: 800 52px/1.05 var(--display); }
+.readouts i { display: block; font: 400 12px var(--body); font-style: normal; color: var(--dim); }
+.spark { display: block; width: 100%; height: 44px; margin-top: auto; }
+.spark path { fill: none; stroke: var(--gold); stroke-width: 1.5; }
+
+/* Panels */
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-outer); padding: 18px; margin-top: var(--s2); }
+/* Groups: the sensors, the forecast and the supporting detail each sit further apart than the cards inside them */
+.sensors { margin-bottom: var(--s4); }
+.forecast { margin-top: var(--s4); }
+.detail { margin-top: var(--s2); }
+.two-up { margin-top: var(--s4); }
+.two-up .panel { margin-top: 0; }
+.path-panel { margin-top: var(--s4); }
+.panel h2 { font: 800 28px/1.1 var(--display); letter-spacing: 0.02em; }
+.panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.note { font-size: 13px; color: var(--dim); margin-top: 4px; }
+.two-up { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; }
+.two-up .panel { min-width: 0; }
+.scroll-x { overflow-x: auto; margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font: 400 12px var(--body); color: var(--dim); padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 7px 10px 7px 0; border-bottom: 1px solid #1f1d15; }
+.num { text-align: right; }
+td.num, .log-table td, .pin-table td:last-child { font-family: var(--mono); font-size: 13px; }
+.meter-col { width: 34%; padding-left: 14px; }
+td.meter-col { padding-left: 14px; }
+.meter { height: 6px; background: #26241a; }
+.meter span { display: block; height: 100%; background: var(--gold); }
+.meter.over span { background: var(--alert); }
+.pending td, .pending { color: var(--dim); }
+
+/* PMS5003T detail */
+.detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 12px; }
+.detail h3 { margin: 0 0 8px; font: 600 13px var(--body); color: var(--dim); }
+.detail td:first-child { font-family: var(--body); font-size: 14px; }
+.count-row { display: grid; grid-template-columns: 76px 1fr 48px; white-space: nowrap; align-items: center; gap: 10px; padding: 6px 0; font: 400 13px var(--mono); }
+.count-row b { font-weight: 400; text-align: right; }
+
+/* Forecast */
+.fc-body { display: grid; grid-template-columns: 2fr 3fr; gap: 24px; margin-top: 8px; }
+.fc-headline { font: 800 44px/1.05 var(--display); color: var(--gold); }
+.fc-meter { margin-top: 14px; max-width: 420px; }
+.fc-progress { font-size: 12px; }
+.fc-scores { margin-top: 0; }
+.fc-scores[hidden] { display: none; }
+.fc-scores tr.best td { color: var(--gold); }
+.fc-scores td:first-child { font-family: var(--body); font-size: 14px; }
+
+/* Signal path */
+.path { list-style: none; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; margin: 14px 0 2px; padding: 0; }
+.path li { position: relative; padding: 14px 12px 0 0; border-top: 2px solid var(--gold); }
+.path li::before { content: ""; position: absolute; top: -6px; left: 0; width: 10px; height: 10px; background: var(--gold); }
+.path li.pending { border-top: 2px dashed var(--dim); }
+.path li.pending::before { background: var(--panel); border: 2px solid var(--dim); }
+.path b { display: block; font-size: 15px; font-weight: 600; }
+.path span { display: block; font-size: 12.5px; color: var(--dim); line-height: 1.35; margin-top: 2px; }
+
+.foot { margin-top: 20px; font-size: 12.5px; color: var(--dim); max-width: 90ch; }
+
+@media (max-width: 1000px) {
+  .sensors, .two-up, .fc-body, .detail-grid { grid-template-columns: 1fr; }
+  .what { min-height: 0; }
+  .path { grid-template-columns: 1fr; }
+  .path li { border-top: 0; border-left: 2px solid var(--gold); padding: 0 0 14px 14px; }
+  .path li::before { top: 0; left: -6px; }
+  .path li.pending { border-top: 0; border-left: 2px dashed var(--dim); }
+}
+@media (max-width: 600px) {
+  body { padding: 0 16px 28px; }
+  .brand { flex-direction: column; align-items: flex-start; gap: 8px; }
+  #recorder { height: 260px; }
+}
+
+/* Forecast graph: measured line, forecast line, shaded future */
+.fc-chart { margin-top: 20px; }
+.fc-chart[hidden] { display: none; }
+#fcChart { display: block; width: 100%; height: 240px; }
+#fcChart .grid { stroke: var(--line); stroke-width: 1; }
+#fcChart text { font: 400 11px var(--mono); fill: var(--dim); }
+#fcChart .future { fill: var(--gold-soft); }
+#fcChart .now { fill: var(--gold); }
+#fcChart .measured { fill: none; stroke: var(--silk); stroke-width: 2; stroke-linejoin: round; }
+#fcChart .predicted { fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-dasharray: 6 4; stroke-linejoin: round; }
+#fcChart .tip { fill: var(--gold); }
+.fc-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.fc-legend .key { display: inline-block; width: 22px; height: 0; border-top: 2px solid var(--silk); }
+.fc-legend .key.predicted { border-top: 2px dashed var(--gold); margin-left: 8px; }
+@media (max-width: 760px) { #fcChart { height: 200px; } }
+
+/* Forecast refresh button */
+.fc-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.fc-actions .note { font-size: 12px; margin: 0; }
+/* Secondary action: outlined, so "Download log" stays the one filled button on the page */
+.fc-actions .btn { color: var(--gold); background: transparent; border-color: var(--gold); }
+.fc-actions .btn:hover:not(:disabled) { background: var(--gold-soft); }
+.btn:focus-visible { outline: 2px solid var(--silk); outline-offset: 2px; }
+.btn.busy::after {
+  content: ""; display: inline-block; width: 10px; height: 10px; margin-left: 8px; vertical-align: -1px;
+  border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%;
+}
+@media (prefers-reduced-motion: no-preference) { .btn.busy::after { animation: spin 0.8s linear infinite; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Forecast confidence line and error bar */
+.fc-confidence { margin-top: 10px; font: 600 13px/1.4 var(--body); color: var(--dim); }
+.fc-confidence[hidden] { display: none; }
+.fc-confidence[data-level="none"], .fc-confidence[data-level="low"] { color: var(--alert); }
+.fc-confidence[data-level="moderate"] { color: var(--ok); }
+#fcChart .errbar { stroke: var(--gold); stroke-width: 2; opacity: 0.7; }
+
+/* Loading: readouts show a pulse until the first reading arrives, instead of "--" */
+body.loading .readouts b, body.loading .fc-headline, body.loading .hero h1 {
+  color: transparent; background: var(--line); border-radius: var(--r-inner); width: fit-content; min-width: 3ch;
+}
+body.loading .spark { opacity: 0.25; }
+@media (prefers-reduced-motion: no-preference) {
+  body.loading .readouts b, body.loading .fc-headline, body.loading .hero h1 { animation: pulse 1.4s ease-in-out infinite; }
+}
+@keyframes pulse { 50% { opacity: 0.45; } }
+@media (max-width: 600px) {
+  :root { --s4: 28px; }
+}
+
+/* Chart range tabs */
+.range-tabs { display: inline-flex; gap: 4px; }
+.range {
+  min-height: 32px; min-width: 52px; padding: 0 12px;
+  font: 600 13px var(--body); color: var(--dim); background: transparent;
+  border: 1px solid var(--line); border-radius: var(--r-inner); cursor: pointer;
+}
+.range:hover { color: var(--silk); border-color: var(--dim); }
+.range[aria-pressed="true"] { color: var(--black); background: var(--gold); border-color: var(--gold); }
+.recorder-head { align-items: center; }
+
+/* A button that is working keeps full strength and shows its spinner; dimming means "unavailable" */
+.btn.busy:disabled { opacity: 1; }
+.fc-actions .btn, .btn { min-height: 32px; }
+@media (max-width: 1000px) { .module-lead { grid-row: auto; } }
+
+/* Gas index: one honest number on a banded scale */
+.gi-read { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 6px 0 14px; }
+.gi-num { font: 800 64px/0.9 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+.gi-num.settling { color: var(--dim); }
+.gi-band { font-size: 15px; color: var(--dim); max-width: 32ch; }
+.gi-band.raised { color: var(--alert); }
+.gi-scale { font: 12px var(--mono); color: var(--dim); }
+.gi-track { position: relative; height: 8px; display: grid; grid-template-columns: 80fr 70fr 100fr 150fr;
+  background: linear-gradient(90deg, #2c3a24 0 20%, #3a3622 20% 37.5%, #4a3420 37.5% 62.5%, #52261d 62.5% 100%); }
+.gi-mark { position: absolute; top: -5px; width: 3px; height: 18px; margin-left: -1px; background: var(--gold); }
+.gi-zones, .gi-ticks { display: grid; grid-template-columns: 80fr 70fr 100fr 150fr; margin-top: 6px; }
+.gi-ticks { grid-template-columns: 80fr 70fr 100fr 150fr 0fr; }
+.gi-ticks span:last-child { justify-self: end; white-space: nowrap; }
+#sparkGas { margin-top: 14px; }

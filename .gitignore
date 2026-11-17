@@ -1,0 +1,23 @@
+# Agent / editor config
+.claude/
+CLAUDE.md
+AGENTS.md
+.vscode/
+__pycache__/
+*.pyc
+
+# Tooling binaries (download arduino-cli separately)
+arduino-cli.exe
+arduino-cli.zip
+_arduino_user/
+_old_dashboard/
+
+# Backups, logs and live data
+*.bak
+*.bak_*
+*.bak_pre_*
+*.log
+saans_log.csv
+saans_log.csv.*
+README_SAAANS.md
+saaans_output/models/

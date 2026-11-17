@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAAANS | Indoor air quality monitor</title>
+  <meta name="description" content="Live readings from the SAAANS indoor air quality monitor: an ESP32 with PMS5003T, BME280 and MQ-135 sensors.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Instrument+Sans:wght@400;600&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="loading">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="wordmark">SAAANS</span>
+      <span class="brand-line">Smart indoor air quality monitor using IoT and machine learning<br>Capstone project, Dept. of ECE, Thapar Institute, Patiala</span>
+    </div>
+    <div class="link" aria-live="polite">
+      <span class="led" id="linkLed"></span>
+      <span id="linkLabel">Checking the board</span>
+    </div>
+    <div class="controls">
+      <label class="field">Port
+        <select id="portSelect"><option value="COM11">COM11</option></select>
+      </label>
+      <button id="btnConnect" class="btn" type="button">Connect</button>
+      <button id="btnExport" class="btn btn-gold" type="button">Download log</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="verdict">
+      <div class="hero-main">
+        <div class="aqi-figure">
+          <span class="eyebrow">Air quality index</span>
+          <b class="aqi-number" id="aqiNow">--</b>
+          <span class="aqi-cat" id="aqiCat"></span>
+        </div>
+        <div class="hero-text">
+          <h1 id="verdict">Waiting for the first reading</h1>
+          <p class="advice" id="advice">The dashboard fills in as soon as the ESP32 sends data.</p>
+        </div>
+      </div>
+      <div class="recorder">
+        <div class="recorder-head">
+          <div class="range-tabs" role="group" aria-label="Chart range">
+            <button type="button" class="range" data-minutes="15" aria-pressed="true">15 min</button>
+            <button type="button" class="range" data-minutes="60" aria-pressed="false">1 h</button>
+            <button type="button" class="range" data-minutes="360" aria-pressed="false">6 h</button>
+            <button type="button" class="range" data-minutes="1440" aria-pressed="false">24 h</button>
+          </div>
+          <span id="recorderNote">Live, a point about every 10 seconds</span>
+        </div>
+        <svg id="recorder" role="img" aria-label="Air quality index over the last 15 minutes"></svg>
+      </div>
+    </section>
+
+    <section class="sensors" aria-label="Sensor readings">
+      <article class="module module-lead">
+        <header>
+          <h2>PMS5003T</h2>
+          <span class="tag" id="pmTag">No data</span>
+        </header>
+        <p class="what">Particles in the air, measured by laser scattering</p>
+        <dl class="readouts">
+          <div class="lead"><dt>PM2.5</dt><dd><b id="pm25">--</b><i>µg/m³</i></dd></div>
+          <div><dt>PM1.0</dt><dd><b id="pm1">--</b><i>µg/m³</i></dd></div>
+          <div><dt>PM10</dt><dd><b id="pm10">--</b><i>µg/m³</i></dd></div>
+          <div><dt>PM2.5, EPA-corrected</dt><dd><b id="pm25epa">--</b><i>µg/m³</i></dd></div>
+        </dl>
+        <p class="what epa-note">The EPA-corrected figure applies the US EPA formula for this sensor type, 0.52 × CF=1 − 0.086 × RH + 5.75. It was fitted mostly below 250 µg/m³, so treat it as an estimate. The AQI uses the raw reading.</p>
+        <svg class="spark" id="sparkPm" aria-hidden="true"></svg>
+      </article>
+
+      <article class="module">
+        <header>
+          <h2>BME280</h2>
+          <span class="tag" id="bmeTag">No data</span>
+        </header>
+        <p class="what">Temperature, humidity and pressure. Temperature is shown 2.5 °C below the raw sensor because the board runs warm.</p>
+        <dl class="readouts">
+          <div class="lead"><dt>Temperature</dt><dd><b id="temp">--</b><i>°C</i></dd></div>
+          <div><dt>Humidity</dt><dd><b id="hum">--</b><i>%</i></dd></div>
+          <div><dt>Pressure</dt><dd><b id="press">--</b><i>hPa</i></dd></div>
+        </dl>
+        <svg class="spark" id="sparkTemp" aria-hidden="true"></svg>
+      </article>
+
+      <article class="module">
+        <header>
+          <h2>MQ-135</h2>
+          <span class="tag" id="mqTag">No data</span>
+        </header>
+        <p class="what" id="mqNote">Gas sensor. One combined signal, not a gas-by-gas reading</p>
+        <dl class="readouts">
+          <div class="lead"><dt>Raw ADC</dt><dd><b id="mqRaw">--</b><i>of 4095</i></dd></div>
+          <div><dt>At ADC pin</dt><dd><b id="mqVolt">--</b><i>V</i></dd></div>
+          <div><dt>R₀</dt><dd><b id="mqR0">--</b><i>kΩ</i></dd></div>
+        </dl>
+        <svg class="spark" id="sparkMq" aria-hidden="true"></svg>
+      </article>
+    </section>
+
+    <section class="panel detail">
+      <div class="panel-head">
+        <h2>Inside the PMS5003T</h2>
+        <span class="note" id="pmsHealth">No data yet</span>
+      </div>
+      <div class="detail-grid">
+        <div>
+          <h3>Particles above each size, per 0.1 L of air</h3>
+          <div class="counts" id="counts"></div>
+        </div>
+        <div>
+          <h3>PM mass, two calibration settings</h3>
+          <table>
+            <thead><tr><th>µg/m³</th><th class="num">PM1.0</th><th class="num">PM2.5</th><th class="num">PM10</th></tr></thead>
+            <tbody>
+              <tr><td>Atmospheric (used for AQI)</td><td class="num" id="atm1">--</td><td class="num" id="atm25">--</td><td class="num" id="atm10">--</td></tr>
+              <tr><td>CF=1 (factory setting)</td><td class="num" id="cf1">--</td><td class="num" id="cf25">--</td><td class="num" id="cf10">--</td></tr>
+              <tr><td>US EPA correction (from CF=1 and humidity)</td><td class="num">–</td><td class="num" id="epa25">--</td><td class="num">–</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Its own temperature and humidity, against the BME280</h3>
+          <table>
+            <thead><tr><th></th><th class="num">°C</th><th class="num">% RH</th></tr></thead>
+            <tbody>
+              <tr><td>PMS5003T</td><td class="num" id="pmsT">--</td><td class="num" id="pmsH">--</td></tr>
+              <tr><td>BME280</td><td class="num" id="bmeT">--</td><td class="num" id="bmeH">--</td></tr>
+              <tr><td>Difference</td><td class="num" id="diffT">--</td><td class="num" id="diffH">--</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel forecast">
+      <div class="panel-head">
+        <h2>PM2.5 forecast, 30 minutes ahead</h2>
+        <span class="fc-actions">
+          <span class="note" id="fcUpdated" aria-live="polite"></span>
+          <button type="button" class="btn" id="fcRefresh">Retrain forecast</button>
+          <span class="tag" id="fcTag">Checking</span>
+        </span>
+      </div>
+      <div class="fc-body">
+        <div class="fc-main">
+          <p class="fc-headline" id="fcHeadline">Checking the forecast</p>
+          <p class="note" id="fcNote"></p>
+          <p class="fc-confidence" id="fcConfidence" hidden></p>
+          <div class="meter fc-meter" id="fcMeter" aria-hidden="true"><span style="width:0"></span></div>
+          <p class="note fc-progress" id="fcProgress"></p>
+        </div>
+        <div class="scroll-x fc-scores" id="fcScores" hidden>
+          <table>
+            <thead><tr><th>Method, on held-out data</th><th class="num">MAE</th><th class="num">RMSE</th><th class="num">R²</th></tr></thead>
+            <tbody id="fcBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="fc-chart" id="fcChartWrap" hidden>
+        <svg id="fcChart" role="img" aria-label="Measured PM2.5 for the last three hours and the 30 minute forecast"></svg>
+        <p class="note fc-legend"><span class="key measured"></span>Measured <span class="key predicted"></span>Forecast, drawn at the time it points to. The part right of "now" is the future.</p>
+      </div>
+    </section>
+
+    <section class="two-up">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Gas index</h2>
+          <span class="tag" id="gasTag" hidden></span>
+        </div>
+        <div class="gi-read">
+          <b class="gi-num" id="gasIndex">--</b>
+          <span class="gi-band" id="gasBand">No data</span>
+        </div>
+        <div class="gi-scale" aria-hidden="true">
+          <div class="gi-track"><span class="gi-mark" id="gasMark"></span></div>
+          <div class="gi-zones"><span>Cleaner</span><span>Usual</span><span>Raised</span><span>High</span></div>
+          <div class="gi-ticks"><span>0</span><span>80</span><span>150</span><span>250</span><span>400+</span></div>
+        </div>
+        <svg class="spark" id="sparkGas" aria-hidden="true"></svg>
+        <p class="note" id="gasNote">100 is this room's usual air. The MQ-135 reacts to many gases at once (sprays, cooking, smoke, alcohol, ammonia, some CO₂), so this shows how much more gas than usual is in the air, not which gas or how many ppm.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Wiring on the bench</h2>
+        <div class="scroll-x">
+          <table class="pin-table">
+            <thead><tr><th>Sensor pin</th><th>ESP32 pin</th></tr></thead>
+            <tbody>
+              <tr><td>PMS5003T 5V / GND</td><td>VIN / GND</td></tr>
+              <tr><td>PMS5003T TX</td><td>GPIO16 (RX2)</td></tr>
+              <tr><td>PMS5003T RX</td><td>GPIO17 (TX2)</td></tr>
+              <tr><td>BME280 VCC / GND</td><td>3V3 / GND</td></tr>
+              <tr><td>BME280 SDA / SCL</td><td>GPIO21 / GPIO22</td></tr>
+              <tr><td>MQ-135 VCC / GND</td><td>VIN / GND</td></tr>
+              <tr><td>MQ-135 AOUT, via 18k + 33k divider</td><td>GPIO34</td></tr>
+              <tr class="pending"><td>Fan relay IN</td><td>GPIO26, not wired yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel path-panel">
+      <h2>From sensor to screen</h2>
+      <ol class="path">
+        <li><b>Sensors</b><span>PMS5003T, BME280, MQ-135</span></li>
+        <li><b>ESP32</b><span>Sends one CSV line every 5 s</span></li>
+        <li><b>USB serial</b><span id="pathPort">115200 baud</span></li>
+        <li><b>Flask server</b><span>Works out AQI and logs to saans_log.csv</span></li>
+        <li><b>This dashboard</b><span>Updates every 2 s</span></li>
+        <li class="pending" id="pathForecast"><b>ML forecast</b><span id="pathForecastNote">Collecting training data</span></li>
+        <li class="pending"><b>Automatic fan</b><span>Relay not wired yet</span></li>
+      </ol>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Latest readings</h2>
+        <span class="note" id="logCount"></span>
+      </div>
+      <div class="scroll-x">
+        <table class="log-table">
+          <thead><tr><th>Time</th><th class="num">AQI</th><th class="num">PM2.5</th><th class="num">PM10</th><th class="num">°C</th><th class="num">% RH</th><th class="num">hPa</th><th class="num">MQ raw</th><th class="num">Fan</th></tr></thead>
+          <tbody id="logBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">AQI uses US EPA PM2.5 breakpoints, combined with the MQ-135 and comfort score. The worst value sets the index. Readings come from low-cost sensors and have not been checked against a reference instrument.</footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

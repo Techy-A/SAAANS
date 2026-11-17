@@ -1,0 +1,40 @@
+{
+  "status": "trained",
+  "trained_at": "2026-11-17T03:40:19",
+  "horizon_min": 30,
+  "hours": 198.78,
+  "train_rows": 8538,
+  "test_rows": 2143,
+  "test_pm25_range": [
+    148.16666666666666,
+    1223.8333333333333
+  ],
+  "target": "change",
+  "stage": "result",
+  "best_model": "Robust linear",
+  "beats_baseline": true,
+  "results": {
+    "Baseline: stays the same": {
+      "mae": 47.79,
+      "rmse": 61.65,
+      "r2": 0.942
+    },
+    "Baseline: 30-min average": {
+      "mae": 63.42,
+      "rmse": 81.1,
+      "r2": 0.9
+    },
+    "Gradient boosting": {
+      "mae": 43.28,
+      "rmse": 62.04,
+      "r2": 0.941
+    },
+    "Robust linear": {
+      "mae": 40.48,
+      "rmse": 56.79,
+      "r2": 0.951
+    }
+  },
+  "decision": "promoted",
+  "champion_mae": 40.51
+}

@@ -1,0 +1,11 @@
+{
+  "r0": 249.01,
+  "calibrated_at": "2026-11-03T12:29:33.672089",
+  "readings": 61,
+  "rs_min": 239.36,
+  "rs_max": 285.2,
+  "temperature": "25.01",
+  "humidity": "52.09",
+  "pm25": "116.0",
+  "previous_r0": 268.8
+}

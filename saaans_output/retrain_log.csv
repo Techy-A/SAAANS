@@ -1,0 +1,17 @@
+run_at,hours,best_model,new_mae,baseline_mae,champion_mae,decision
+2026-11-07T12:50:46,132.47,Gradient boosting,22.61,23.16,23.45,withdrawn_no_skill
+2026-11-07T17:50:39,137.47,Gradient boosting,22.14,22.2,22.34,withdrawn_no_skill
+2026-11-07T17:58:24,137.6,Gradient boosting,21.86,21.99,21.97,withdrawn_no_skill
+2026-11-07T21:44:21,141.37,Gradient boosting,23.01,23.71,23.5,withdrawn_no_skill
+2026-11-07T21:44:38,141.37,Gradient boosting,23.01,23.71,23.01,withdrawn_no_skill
+2026-11-08T01:39:12,145.27,Gradient boosting,24.34,25.44,23.57,kept_champion_new_failed
+2026-11-08T03:40:27,147.3,Gradient boosting,25.88,23.19,22.29,withdrawn_no_skill
+2026-11-08T20:05:01,163.7,Gradient boosting,31.58,31.72,30.84,withdrawn_no_skill
+2026-11-08T20:12:21,163.83,Gradient boosting,32.65,32.14,32.65,withdrawn_no_skill
+2026-11-09T03:40:27,171.3,Gradient boosting,151.55,44.33,151.27,withdrawn_no_skill
+2026-11-10T21:32:30,181.77,Gradient boosting,160.39,46.05,165.75,withdrawn_no_skill
+2026-11-11T00:45:26,184.98,Gradient boosting,158.62,47.63,158.8,withdrawn_no_skill
+2026-11-13T00:20:01,188.05,Gradient boosting,52.25,48.08,157.65,withdrawn_no_skill
+2026-11-13T01:28:48,188.85,Robust linear,40.15,47.47,51.99,promoted
+2026-11-13T03:40:21,191.05,Robust linear,39.83,47.13,39.93,promoted
+2026-11-17T03:40:19,198.78,Robust linear,40.48,47.79,40.51,promoted
