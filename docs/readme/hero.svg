@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420">
+<rect width="1200" height="420" rx="18" fill="#0d0c0a"/>
+<g stroke="#1f1d18"><line x1="60" y1="0" x2="60" y2="420"/>
+<line x1="120" y1="0" x2="120" y2="420"/>
+<line x1="180" y1="0" x2="180" y2="420"/>
+<line x1="240" y1="0" x2="240" y2="420"/>
+<line x1="300" y1="0" x2="300" y2="420"/>
+<line x1="360" y1="0" x2="360" y2="420"/>
+<line x1="420" y1="0" x2="420" y2="420"/>
+<line x1="480" y1="0" x2="480" y2="420"/>
+<line x1="540" y1="0" x2="540" y2="420"/>
+<line x1="600" y1="0" x2="600" y2="420"/>
+<line x1="660" y1="0" x2="660" y2="420"/>
+<line x1="720" y1="0" x2="720" y2="420"/>
+<line x1="780" y1="0" x2="780" y2="420"/>
+<line x1="840" y1="0" x2="840" y2="420"/>
+<line x1="900" y1="0" x2="900" y2="420"/>
+<line x1="960" y1="0" x2="960" y2="420"/>
+<line x1="1020" y1="0" x2="1020" y2="420"/>
+<line x1="1080" y1="0" x2="1080" y2="420"/>
+<line x1="1140" y1="0" x2="1140" y2="420"/></g>
+<rect x="56" y="54" width="250" height="76" fill="#f5c518"/>
+<text x="181" y="113" text-anchor="middle" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="64" font-weight="700" fill="#0d0c0a" letter-spacing="2">SAAANS</text>
+<text x="56" y="182" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700" fill="#f4f1e8">THE AIR IN YOUR ROOM,</text>
+<text x="56" y="226" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700" fill="#f4f1e8">MEASURED AND FORECAST.</text>
+<text x="56" y="266" font-family="Arial,sans-serif" font-size="18" fill="#a9a395">ESP32 + PMS5003T + BME280 + MQ-135 · Flask dashboard · self-retraining ML</text>
+<g font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="15">
+<rect x="56" y="300" width="208" height="64" rx="6" fill="none" stroke="#3a362c"/><text x="72" y="327" fill="#f5c518" font-size="22" font-weight="700">+15.3 %</text><text x="72" y="351" fill="#a9a395">vs persistence</text>
+<rect x="280" y="300" width="208" height="64" rx="6" fill="none" stroke="#3a362c"/><text x="296" y="327" fill="#f5c518" font-size="22" font-weight="700">1,224 µg/m³</text><text x="296" y="351" fill="#a9a395">peak PM2.5 logged</text>
+<rect x="504" y="300" width="208" height="64" rx="6" fill="none" stroke="#3a362c"/><text x="520" y="327" fill="#f5c518" font-size="22" font-weight="700">AQI → 830</text><text x="520" y="351" fill="#a9a395">scale past 500</text>
+</g>
+<text x="1110" y="110" text-anchor="end" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#a9a395">PM2.5, 17 NOV, PATIALA</text>
+<polyline fill="none" stroke="#f4f1e8" stroke-width="3" points="760,190 790,180 820,160 850,150 880,158 910,175 940,200 970,225 1000,250 1030,268 1060,276 1090,280 1110,282"/>
+<polyline fill="none" stroke="#f5c518" stroke-width="3" stroke-dasharray="9 7" points="820,190 850,170 880,150 910,160 940,182 970,212 1000,238 1030,258 1060,272 1090,278 1110,280 1140,282"/>
+<circle cx="1140" cy="282" r="6" fill="#f5c518"/>
+<text x="760" y="330" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#f4f1e8">━ measured</text>
+<text x="900" y="330" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#f5c518">- - forecast, 30 min ahead</text>
+<text x="1144" y="392" text-anchor="end" font-family="Arial,sans-serif" font-size="14" fill="#6e695d">Capstone · ECE · Thapar Institute, Patiala · 2026</text>
+</svg>
