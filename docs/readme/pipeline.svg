@@ -1,20 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" width="1200" height="330">
-<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f5c518"/></marker></defs>
-<rect width="1200" height="330" rx="16" fill="#0d0c0a"/>
-<g font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="15" fill="#f4f1e8">
-<rect x="40" y="40" width="200" height="56" rx="6" fill="#16140f" stroke="#3a362c"/><text x="60" y="66">PMS5003T</text><text x="60" y="86" fill="#a9a395" font-size="12">UART · particles</text>
-<rect x="40" y="116" width="200" height="56" rx="6" fill="#16140f" stroke="#3a362c"/><text x="60" y="142">BME280</text><text x="60" y="162" fill="#a9a395" font-size="12">I²C · T / RH / P</text>
-<rect x="40" y="192" width="200" height="56" rx="6" fill="#16140f" stroke="#3a362c"/><text x="60" y="218">MQ-135</text><text x="60" y="238" fill="#a9a395" font-size="12">ADC · gas response</text>
-<rect x="320" y="116" width="150" height="56" rx="6" fill="#f5c518"/><text x="395" y="150" text-anchor="middle" fill="#0d0c0a" font-weight="700">ESP32</text>
-<rect x="560" y="96" width="270" height="96" rx="6" fill="#16140f" stroke="#f5c518"/><text x="580" y="124" font-weight="700">iaq_server.py</text><text x="580" y="148" fill="#a9a395" font-size="12">AQI · gas index · EPA correction</text><text x="580" y="168" fill="#a9a395" font-size="12">REST API · Flask</text>
-<rect x="920" y="40" width="240" height="56" rx="6" fill="#16140f" stroke="#3a362c"/><text x="940" y="66">Dashboard</text><text x="940" y="86" fill="#a9a395" font-size="12">any browser on the LAN</text>
-<rect x="920" y="192" width="240" height="56" rx="6" fill="#16140f" stroke="#3a362c"/><text x="940" y="218">saans_log.csv</text><text x="940" y="238" fill="#a9a395" font-size="12">one row per minute</text>
-<rect x="560" y="250" width="270" height="56" rx="6" fill="#16140f" stroke="#3a362c"/><text x="580" y="276">saaans_forecast.py</text><text x="580" y="296" fill="#a9a395" font-size="12">nightly 03:40 · promote if ≥ 5 % better</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" width="1200" height="330"><defs><filter id="g" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="v" cx="25%" cy="15%" r="95%"><stop offset="0" stop-color="#3d2611"/><stop offset="1" stop-color="#140c06"/></radialGradient></defs>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f2b544"/></marker></defs>
+<rect width="1200" height="330" rx="16" fill="url(#v)"/>
+<g font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="15" fill="#f6e7c8">
+<rect x="40" y="40" width="200" height="56" rx="6" fill="#26190f" stroke="#4a3220"/><text x="60" y="66">PMS5003T</text><text x="60" y="86" fill="#bfa07a" font-size="12">UART · particles</text>
+<rect x="40" y="116" width="200" height="56" rx="6" fill="#26190f" stroke="#4a3220"/><text x="60" y="142">BME280</text><text x="60" y="162" fill="#bfa07a" font-size="12">I²C · T / RH / P</text>
+<rect x="40" y="192" width="200" height="56" rx="6" fill="#26190f" stroke="#4a3220"/><text x="60" y="218">MQ-135</text><text x="60" y="238" fill="#bfa07a" font-size="12">ADC · gas response</text>
+<rect filter="url(#g)" x="320" y="116" width="150" height="56" rx="6" fill="#f2b544"/><text x="395" y="150" text-anchor="middle" fill="#1a110a" font-weight="700">ESP32</text>
+<rect filter="url(#g)" x="560" y="96" width="270" height="96" rx="6" fill="#26190f" stroke="#f2b544"/><text x="580" y="124" font-weight="700">iaq_server.py</text><text x="580" y="148" fill="#bfa07a" font-size="12">AQI · gas index · EPA correction</text><text x="580" y="168" fill="#bfa07a" font-size="12">REST API · Flask</text>
+<rect x="920" y="40" width="240" height="56" rx="6" fill="#26190f" stroke="#4a3220"/><text x="940" y="66">Dashboard</text><text x="940" y="86" fill="#bfa07a" font-size="12">any browser on the LAN</text>
+<rect x="920" y="192" width="240" height="56" rx="6" fill="#26190f" stroke="#4a3220"/><text x="940" y="218">saans_log.csv</text><text x="940" y="238" fill="#bfa07a" font-size="12">one row per minute</text>
+<rect x="560" y="250" width="270" height="56" rx="6" fill="#26190f" stroke="#4a3220"/><text x="580" y="276">saaans_forecast.py</text><text x="580" y="296" fill="#bfa07a" font-size="12">nightly 03:40 · promote if ≥ 5 % better</text>
 </g>
-<g stroke="#f5c518" stroke-width="2" fill="none" marker-end="url(#a)">
+<g filter="url(#g)" stroke="#f2b544" stroke-width="2" fill="none" marker-end="url(#a)">
 <path d="M240 68 C280 68 280 136 318 136"/><path d="M240 144 L318 144"/><path d="M240 220 C280 220 280 152 318 152"/>
 <path d="M470 144 L558 144"/><path d="M830 120 C880 120 880 68 918 68"/><path d="M830 168 C880 168 880 220 918 220"/>
 <path d="M1040 248 C1040 290 900 278 832 278"/><path d="M695 250 L695 194"/>
 </g>
-<text x="480" y="136" font-family="Consolas,monospace" font-size="11" fill="#a9a395">USB serial</text>
+<text x="480" y="136" font-family="Consolas,monospace" font-size="11" fill="#bfa07a">USB serial</text>
 </svg>

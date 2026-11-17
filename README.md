@@ -3,11 +3,11 @@
 </p>
 
 <p align="center">
-  <img alt="ESP32" src="https://img.shields.io/badge/ESP32-Arduino-0d0c0a?style=for-the-badge&labelColor=f5c518">
-  <img alt="Python" src="https://img.shields.io/badge/Python-3.11-0d0c0a?style=for-the-badge&labelColor=f5c518">
-  <img alt="Flask" src="https://img.shields.io/badge/Flask-dashboard-0d0c0a?style=for-the-badge&labelColor=f5c518">
-  <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-forecast-0d0c0a?style=for-the-badge&labelColor=f5c518">
-  <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-0d0c0a?style=for-the-badge&labelColor=f5c518">
+  <img alt="ESP32" src="https://img.shields.io/badge/ESP32-Arduino-2a1a0e?style=for-the-badge&labelColor=f2b544">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.11-2a1a0e?style=for-the-badge&labelColor=f2b544">
+  <img alt="Flask" src="https://img.shields.io/badge/Flask-dashboard-2a1a0e?style=for-the-badge&labelColor=f2b544">
+  <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-forecast-2a1a0e?style=for-the-badge&labelColor=f2b544">
+  <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-2a1a0e?style=for-the-badge&labelColor=f2b544">
 </p>
 
 <p align="center">

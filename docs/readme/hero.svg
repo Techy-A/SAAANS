@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420">
-<rect width="1200" height="420" rx="18" fill="#0d0c0a"/>
-<g stroke="#1f1d18"><line x1="60" y1="0" x2="60" y2="420"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420"><defs><filter id="g" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="v" cx="25%" cy="15%" r="95%"><stop offset="0" stop-color="#3d2611"/><stop offset="1" stop-color="#140c06"/></radialGradient></defs>
+<rect width="1200" height="420" rx="18" fill="url(#v)"/>
+<g stroke="#24180e"><line x1="60" y1="0" x2="60" y2="420"/>
 <line x1="120" y1="0" x2="120" y2="420"/>
 <line x1="180" y1="0" x2="180" y2="420"/>
 <line x1="240" y1="0" x2="240" y2="420"/>
@@ -19,21 +19,21 @@
 <line x1="1020" y1="0" x2="1020" y2="420"/>
 <line x1="1080" y1="0" x2="1080" y2="420"/>
 <line x1="1140" y1="0" x2="1140" y2="420"/></g>
-<rect x="56" y="54" width="250" height="76" fill="#f5c518"/>
-<text x="181" y="113" text-anchor="middle" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="64" font-weight="700" fill="#0d0c0a" letter-spacing="2">SAAANS</text>
-<text x="56" y="182" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700" fill="#f4f1e8">THE AIR IN YOUR ROOM,</text>
-<text x="56" y="226" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700" fill="#f4f1e8">MEASURED AND FORECAST.</text>
-<text x="56" y="266" font-family="Arial,sans-serif" font-size="18" fill="#a9a395">ESP32 + PMS5003T + BME280 + MQ-135 · Flask dashboard · self-retraining ML</text>
+<rect filter="url(#g)" x="56" y="54" width="250" height="76" fill="#f2b544"/>
+<text x="181" y="113" text-anchor="middle" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="64" font-weight="700" fill="#1a110a" letter-spacing="2">SAAANS</text>
+<text x="56" y="182" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700" fill="#f6e7c8">THE AIR IN YOUR ROOM,</text>
+<text x="56" y="226" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700" fill="#f6e7c8">MEASURED AND FORECAST.</text>
+<text x="56" y="266" font-family="Arial,sans-serif" font-size="18" fill="#bfa07a">ESP32 + PMS5003T + BME280 + MQ-135 · Flask dashboard · self-retraining ML</text>
 <g font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="15">
-<rect x="56" y="300" width="208" height="64" rx="6" fill="none" stroke="#3a362c"/><text x="72" y="327" fill="#f5c518" font-size="22" font-weight="700">+15.3 %</text><text x="72" y="351" fill="#a9a395">vs persistence</text>
-<rect x="280" y="300" width="208" height="64" rx="6" fill="none" stroke="#3a362c"/><text x="296" y="327" fill="#f5c518" font-size="22" font-weight="700">1,224 µg/m³</text><text x="296" y="351" fill="#a9a395">peak PM2.5 logged</text>
-<rect x="504" y="300" width="208" height="64" rx="6" fill="none" stroke="#3a362c"/><text x="520" y="327" fill="#f5c518" font-size="22" font-weight="700">AQI → 830</text><text x="520" y="351" fill="#a9a395">scale past 500</text>
+<rect x="56" y="300" width="208" height="64" rx="6" fill="none" stroke="#4a3220"/><text filter="url(#g)" x="72" y="327" fill="#f2b544" font-size="22" font-weight="700">+15.3 %</text><text x="72" y="351" fill="#bfa07a">vs persistence</text>
+<rect x="280" y="300" width="208" height="64" rx="6" fill="none" stroke="#4a3220"/><text filter="url(#g)" x="296" y="327" fill="#f2b544" font-size="22" font-weight="700">1,224 µg/m³</text><text x="296" y="351" fill="#bfa07a">peak PM2.5 logged</text>
+<rect x="504" y="300" width="208" height="64" rx="6" fill="none" stroke="#4a3220"/><text filter="url(#g)" x="520" y="327" fill="#f2b544" font-size="22" font-weight="700">AQI → 830</text><text x="520" y="351" fill="#bfa07a">scale past 500</text>
 </g>
-<text x="1110" y="110" text-anchor="end" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#a9a395">PM2.5, 17 NOV, PATIALA</text>
-<polyline fill="none" stroke="#f4f1e8" stroke-width="3" points="760,190 790,180 820,160 850,150 880,158 910,175 940,200 970,225 1000,250 1030,268 1060,276 1090,280 1110,282"/>
-<polyline fill="none" stroke="#f5c518" stroke-width="3" stroke-dasharray="9 7" points="820,190 850,170 880,150 910,160 940,182 970,212 1000,238 1030,258 1060,272 1090,278 1110,280 1140,282"/>
-<circle cx="1140" cy="282" r="6" fill="#f5c518"/>
-<text x="760" y="330" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#f4f1e8">━ measured</text>
-<text x="900" y="330" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#f5c518">- - forecast, 30 min ahead</text>
-<text x="1144" y="392" text-anchor="end" font-family="Arial,sans-serif" font-size="14" fill="#6e695d">Capstone · ECE · Thapar Institute, Patiala · 2026</text>
+<text x="1110" y="110" text-anchor="end" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#bfa07a">PM2.5, 17 NOV, PATIALA</text>
+<polyline fill="none" stroke="#f6e7c8" stroke-width="3" points="760,190 790,180 820,160 850,150 880,158 910,175 940,200 970,225 1000,250 1030,268 1060,276 1090,280 1110,282"/>
+<polyline filter="url(#g)" fill="none" stroke="#f2b544" stroke-width="3" stroke-dasharray="9 7" points="820,190 850,170 880,150 910,160 940,182 970,212 1000,238 1030,258 1060,272 1090,278 1110,280 1140,282"/>
+<circle filter="url(#g)" cx="1140" cy="282" r="6" fill="#f2b544"/>
+<text x="760" y="330" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#f6e7c8">━ measured</text>
+<text filter="url(#g)" x="900" y="330" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="14" fill="#f2b544">- - forecast, 30 min ahead</text>
+<text x="1144" y="392" text-anchor="end" font-family="Arial,sans-serif" font-size="14" fill="#7d6247">Capstone · ECE · Thapar Institute, Patiala · 2026</text>
 </svg>

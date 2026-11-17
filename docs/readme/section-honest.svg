@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 96" width="1200" height="96">
-<rect width="1200" height="96" rx="12" fill="#0d0c0a"/>
-<rect x="0" y="0" width="10" height="96" fill="#f5c518"/>
-<text x="44" y="42" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="15" fill="#f5c518" letter-spacing="3">LIMITS</text>
-<text x="44" y="76" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="32" font-weight="700" fill="#f4f1e8">What the numbers can and cannot tell you</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 96" width="1200" height="96"><defs><filter id="g" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="v" cx="25%" cy="15%" r="95%"><stop offset="0" stop-color="#3d2611"/><stop offset="1" stop-color="#140c06"/></radialGradient></defs>
+<rect width="1200" height="96" rx="12" fill="url(#v)"/>
+<rect filter="url(#g)" x="0" y="0" width="10" height="96" fill="#f2b544"/>
+<text filter="url(#g)" x="44" y="42" font-family="Consolas,'SFMono-Regular',Menlo,monospace" font-size="15" fill="#f2b544" letter-spacing="3">LIMITS</text>
+<text x="44" y="76" font-family="'Arial Narrow','Helvetica Neue',Arial,sans-serif" font-size="32" font-weight="700" fill="#f6e7c8">What the numbers can and cannot tell you</text>
 </svg>
